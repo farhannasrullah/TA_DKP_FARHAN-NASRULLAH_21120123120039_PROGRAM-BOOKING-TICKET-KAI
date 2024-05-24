@@ -8,7 +8,6 @@ from tkinter.messagebox import showinfo
 from collections import deque
  
 
-logged_in = False
 mytickets = deque()
 
 file_path = None
