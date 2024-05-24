@@ -3,9 +3,12 @@ from tkinter import messagebox
 from tkinter import ttk 
 import tkinter as tk 
 from tkinter.messagebox import *
-from tkinter import ttk, messagebox, filedialog
+from tkinter import ttk, filedialog
 from tkinter.messagebox import showinfo
 from collections import deque
+ 
+
+logged_in = False
 mytickets = deque()
 
 file_path = None
@@ -166,7 +169,7 @@ def halaman_pesan():
                                   font=("times new roman", 10),
                                   width=10)
     combobox_tahun.place(x=510, y=170)
-    tahun_list = [str(i) for i in range(2024, 2030)]  # Misalnya, rentang tahun dari 2024 hingga 2029
+    tahun_list = [str(i) for i in range(2024, 2030)]
     combobox_tahun['values'] = tahun_list
 
     buttonback = Button(window,
@@ -276,7 +279,7 @@ def form():
 
     
     label_hp = Label(window, text="Nomor HP", font=("times new roman", 12))
-    label_hp.place(x=50, y=120)
+    label_hp.place(x=50, y=110)
     entry_hp = Entry(window, font=("times new roman", 12))
     entry_hp.place(x=240, y=110)
 
@@ -329,20 +332,21 @@ def form():
 
     
     def update_harga():
-        harga = 0
+        
         kelas = kelas_tiket.get()
+        harga = 0
         if kelas == "Eksekutif":
-            harga = 1000000
+            harga = 250000
         elif kelas == "Bisnis":
-            harga = 750000
+            harga = 120000
         elif kelas == "Ekonomi":
-            harga = 500000
+            harga = 70000
         elif kelas == "Premium":
-            harga = 1200000
+            harga = 100000
         elif kelas == "Luxury":
-            harga = 1500000
+            harga = 600000
         elif kelas == "Sleeper":
-            harga = 2000000
+            harga = 1000000
 
         label_harga.config(text="Harga Tiket: Rp " + str(harga))
 
@@ -356,7 +360,7 @@ def form():
     terms_text = """Ketentuan Pemesanan Tiket:
     1. Tiket yang sudah dibeli tidak dapat dibatalkan.
     2. Penukaran jadwal hanya dapat dilakukan maksimal 24 jam sebelum keberangkatan di stasiun asal.
-    3. Lorem ipsum"""
+    3. Tiket dapat dipesan maksimal 1 jam sebelum keberangkatan kereta."""
     label_terms = Label(window, text=terms_text, font=("times new roman", 10), justify=LEFT)
     label_terms.place(x=50, y=300)
 
@@ -396,17 +400,17 @@ def lanjut_proses():
     
     harga = 0
     if kelas == "Eksekutif":
-        harga = 1000000
+        harga = 250000
     elif kelas == "Bisnis":
-        harga = 750000
+        harga = 120000
     elif kelas == "Ekonomi":
-        harga = 500000
+        harga = 70000
     elif kelas == "Premium":
-        harga = 1200000
+        harga = 100000
     elif kelas == "Luxury":
-        harga = 1500000
+        harga = 600000
     elif kelas == "Sleeper":
-        harga = 2000000
+        harga = 1000000
 
     
     keberangkatan = stasiun_berangkat.get()
@@ -452,11 +456,9 @@ def lanjut_proses():
 def update_info_pembayaran(event):
     metode = metode_pembayaran.get()
     if metode == "ShopeePay":
-        info_pembayaran.config(text="Nomor ShopeePay:                1234567890")
+        info_pembayaran.config(text="Nomor ShopeePay:                085640485743 a/n PT KAI Indonesia")
     elif metode == "BRI":
-        info_pembayaran.config(text="Nomor Rekening BRI:             0987654321")
-    elif metode == "Generate QR Code":
-        info_pembayaran.config(text="Silakan klik 'Bayar' untuk menghasilkan QR Code")
+        info_pembayaran.config(text="Nomor Rekening BRI:             82828282828 a/n PT KAI Indonesia")
 
 def pembayaran():
     global metode_pembayaran, info_pembayaran, harga, label_narekentry, label_norekentry
@@ -470,7 +472,7 @@ def pembayaran():
     label_pilih_metode.place(x=50, y=100)
 
     metode_pembayaran = ttk.Combobox(window, font=("times new roman", 12), width=25)
-    metode_pembayaran['values'] = ("ShopeePay", "BRI", "Generate QR Code")
+    metode_pembayaran['values'] = ("ShopeePay", "BRI")
     metode_pembayaran.current(0)  
     metode_pembayaran.place(x=240, y=100)
     metode_pembayaran.bind("<<ComboboxSelected>>", update_info_pembayaran)
@@ -496,26 +498,27 @@ def pembayaran():
 
     harga = 0
     if kelas == "Eksekutif":
-        harga = 1000000
+        harga = 250000
     elif kelas == "Bisnis":
-        harga = 750000
+        harga = 120000
     elif kelas == "Ekonomi":
-        harga = 500000
+        harga = 70000
     elif kelas == "Premium":
-        harga = 1200000
+        harga = 100000
     elif kelas == "Luxury":
-        harga = 1500000
+        harga = 600000
     elif kelas == "Sleeper":
-        harga = 2000000
+        harga = 1000000
     label_nominal = tk.Label(window, text="Nominal yang harus ditransfer : Rp ", font=("Times New Roman", 12))
     label_nominal.place(x=50, y=230)
     label_nominallabel = tk.Label(window,text= harga, font=("Times New Roman",12))
     label_nominallabel.place(x=270, y=230)
 
     terms_text = """Tata Cara Pembayaran:
-    1. Tiket yang sudah dibeli tidak dapat dibatalkan.
-    2. Penukaran jadwal hanya dapat dilakukan maksimal 24 jam sebelum keberangkatan di stasiun asal.
-    3. Lorem ipsum"""
+    1. Sistem Pembayaran yang digunakan yaitu metode transfer ke Nomor Rekening kami.
+    2. Pemesan menuliskan Nama dan Nomor Rekening yang digunakan untuk melakukan transfer.
+    3. Setelah transfer selesai akan muncul ID Transfer / ID Pembayaran.
+    4. Screenshot Bukti Pembayaran dan Simpan ID Transfer / ID Pembayaran."""
     label_terms = Label(window, text=terms_text, font=("times new roman", 10), justify=LEFT)
     label_terms.place(x=50, y=280)
 
@@ -558,7 +561,7 @@ def buktibayar():
     label_file_path.place(x=220, y=200)
 
     label_id        = Label(window,
-                     text="ID pembayaran",
+                     text="ID Pembayaran / Transfer",
                      font=("Times New Roman",12))
     label_id.place(x=215, y=230)
     label_identry = Entry(window,
@@ -573,7 +576,7 @@ def buktibayar():
 
 def cekupload():
     
-    if not file_path : showwarning("UPLOAD","Upload dulu nyet"), buktibayar() 
+    if not file_path : showwarning("UPLOAD","Mohon Upload Bukti Pembayaran"), buktibayar() 
     else : cekid()
 def cekid():
     entryid = label_identry.get()
@@ -662,17 +665,131 @@ def detaildalam():
             nama = entry_nama.get()
     
             showinfo("Informasi Tiket", f"Nomor Kereta: {selected_data[0]}\nStasiun Asal: {selected_data[1]}\nStasiun Tujuan: {selected_data[2]}\nJam Berangkat: {selected_data[3]}\nJam Tiba: {selected_data[4]}")
+
+
+class userService: 
+    def __init__(self, email, password): 
+        self.email = email
+        self.password = password 
+        self.data = { 
+            "farhan@gmail.com" : { 
+                "email"    : "farhan@gmail.com", 
+                "password"  : "0000", 
+                
+            }, 
+            "nasrullah@gmail.com" : { 
+                "email"    : "nasrullah@gmail.com", 
+                "password"  : "1234", 
+                 
+            } 
+        } 
     
+    def checkCredentials(self): 
+        for value in self.data: 
+            if value == self.email: 
+                get_data_user = self.data[value] 
+                if self.password == get_data_user['password']: 
+                    return get_data_user 
+                else: 
+                    return False
+    
+
+    def login(self): 
+        get_data = self.checkCredentials() 
+        if get_data: 
+            berhasillogin()
+        else: 
+            erorrr()
+
+def erorrr():
+    showerror("Error", "Password atau Email salah")
+    halaman_login()
+
+def halaman_login():
+    global entry_password
+    for widget in window.winfo_children():
+        widget.place_forget()
+    label_log = Label(window, text="HALAMAN LOGIN", font=("arial", 16))
+    label_log.place(x=220, y=20)
+    def login():
+        email = entry_email.get()
+        password = entry_password.get()
+        user = userService(email, password)
+        user.login()
+
+    label_email = Label(window, text="Email:", font=("times new roman", 12))
+    label_email.place(x=150, y=150)
+    entry_email = Entry(window, font=("times new roman", 12))
+    entry_email.place(x=250, y=150)
+
+    label_password = Label(window, text="Password:", font=("times new roman", 12))
+    label_password.place(x=150, y=180)
+    entry_password = Entry(window, font=("times new roman", 12), show="*")
+    entry_password.place(x=250, y=180)
+
+    button_login = Button(window, text="Login", command=login, font=("Times New Roman", 13), fg="black", state=ACTIVE)
+    button_login.place(x=240, y=220)
+
+    button_signup = Button(window, text="Sign Up", command=signup, font=("Times New Roman", 13), fg="black", state=ACTIVE)
+    button_signup.place(x=300, y=220)
+
+def signup():
+    global entry_namak, entry_hp, entry_email, entry_password
+    for widget in window.winfo_children():
+        widget.place_forget()
+    label_sign = Label(window, text="HALAMAN SIGN UP", font=("arial", 16))
+    label_sign.place(x=220, y=20)
+
+    label_nama = Label(window, text="Nama:", font=("times new roman", 12))
+    label_nama.place(x=150, y=120)
+    entry_namak = Entry(window, font=("times new roman", 12))
+    entry_namak.place(x=250, y=120)
+
+    label_hp = Label(window, text="Nomor HP:", font=("times new roman", 12))
+    label_hp.place(x=150, y=150)
+    entry_hp = Entry(window, font=("times new roman", 12))
+    entry_hp.place(x=250, y=150)
+
+    label_email = Label(window, text="Email:", font=("times new roman", 12))
+    label_email.place(x=150, y=180)
+    entry_email = Entry(window, font=("times new roman", 12))
+    entry_email.place(x=250, y=180)
+
+    label_password = Label(window, text="Password:", font=("times new roman", 12))
+    label_password.place(x=150, y=210)
+    entry_password = Entry(window, font=("times new roman", 12), show="*")
+    entry_password.place(x=250, y=210)
+    button_signup = Button(window, text="Sign Up", command=berhasilsignup, font=("Times New Roman", 13), fg="black", state=ACTIVE)
+    button_signup.place(x=270, y=240)
+def berhasilsignup():
+    namak = entry_namak.get()
+    nohp = entry_hp.get()
+    emil = entry_email.get()
+    pw = entry_password.get()
+
+    if not namak or not nohp or not emil or not pw :
+        messagebox.showerror("Error", "Lengkapi data sign up")
+        signup()
+    else : berhasilsignedup()
+def berhasilsignedup():
+    showinfo("Signed Up","Selamat anda telah berhasil Sign Up")
+    halaman_utama()
+def berhasillogin():
+    showinfo ("INFO","Selamat anda telah berhasil login") 
+    halaman_utama()
 def halaman_utama():
     for widget in window.winfo_children():
-        widget.place_forget()  
+        widget.place_forget()
     buat_halaman_utama()
 def error():
-    showwarning ("INFO","Error Pembatalan Tiket belum tersedia")
+    showwarning ("INFO","Error, Fitur Pembatalan Tiket belum tersedia")
 def about():
-    showinfo("Info","Program ini merupakan Tugas Akhir Praktikum DKP oleh Farhan Nasrullah")
+    showinfo("Info","Program ini merupakan Tugas Akhir Praktikum DKP oleh Farhan Nasrullah (21120123120039)")
+def logout():
+    response = askokcancel("Log out", "Anda yakin ingin log out dari akun ini?")
+    if response : halaman_login()
 def buat_halaman_utama():
-    
+
     menu = Menu(window)
     itemhome = Menu(menu, tearoff=0)
     itemhelp = Menu(menu, tearoff=0)
@@ -681,6 +798,7 @@ def buat_halaman_utama():
     itemhome.add_command(label='Halaman Utama', command=halaman_utama)
     itemhome.add_command(label='Pesan Tiket', command=otw_pesan)
     itemhome.add_command(label='Batalkan Tiket', command=error)
+    itemhome.add_command(label='Log out', command=logout)
     itemhelp.add_command(label='About', command= about)
     itemview.add_command(label='Jadwal Kereta', command=otw_jadwal)
 
@@ -735,5 +853,5 @@ window.resizable(width=0, height=0)
 
 strnama = StringVar()
 
-buat_halaman_utama()
+halaman_login()
 window.mainloop()
