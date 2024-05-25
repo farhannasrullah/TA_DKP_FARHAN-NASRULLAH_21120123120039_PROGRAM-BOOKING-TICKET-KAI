@@ -479,7 +479,7 @@ def pembayaran():
     info_pembayaran = tk.Label(window, text="", font=("times new roman", 12))
     info_pembayaran.place(x=50, y=140)
     
-    update_info_pembayaran(None)  # Initialize the info label with the current combobox selection
+    update_info_pembayaran(None)
 
     label_norek = tk.Label(window, text="Nomor Rekening Anda :", font=("Times New Roman", 12))
     label_norek.place(x=50, y=170)
